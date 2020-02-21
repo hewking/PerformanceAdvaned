@@ -8,13 +8,24 @@ object UIPerfMonitor : LogPrintListener{
 
     private var mLogPrinter: LogPrinter = LogPrinter(this)
     private var mCpuSampler: CpuSampler = CpuSampler()
+    private val mLogWriteThread = LogWriteThread()
 
     override fun onPrintStart() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mCpuSampler.start()
     }
 
     override fun onPrintEnd(level: Int) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        mCpuSampler.stop()
+        when (level) {
+            UI_PERF_LEVEL_1-> {
+                val cpuInfoList = mCpuSampler.mCpuInfoList
+                val cpuLog = cpuInfoList.map { it.toString() }.reduce { acc, s -> acc + s }
+                mLogWriteThread.savelog(cpuLog)
+            }
+            else ->{
+
+            }
+        }
     }
 
     fun startMonitor(){

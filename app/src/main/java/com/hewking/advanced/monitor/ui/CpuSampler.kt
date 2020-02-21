@@ -14,7 +14,7 @@ class CpuSampler : BaseSampler(){
         private const val TAG = "CpuSampler"
     }
 
-    private val mCpuInfoList = mutableListOf<CpuInfo>()
+    val mCpuInfoList = mutableListOf<CpuInfo>()
 
     private var mPid = -1
     private var mUserPre = 0L
