@@ -14,7 +14,7 @@ class LogPrinter : Printer {
         private const val TAG = "LogPrinter"
     }
 
-    private lateinit var mLogPrintListener: LogPrintListener
+    private var mLogPrintListener: LogPrintListener
 
     constructor(listener: LogPrintListener) {
         this.mLogPrintListener = listener

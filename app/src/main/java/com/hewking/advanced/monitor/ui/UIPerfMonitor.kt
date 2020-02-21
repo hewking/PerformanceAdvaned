@@ -6,11 +6,8 @@ object UIPerfMonitor : LogPrintListener{
 
     const val TAG = "UIPerfMonitor"
 
-    private var mLogPrinter: LogPrinter
-
-    init {
-        mLogPrinter = LogPrinter(this)
-    }
+    private var mLogPrinter: LogPrinter = LogPrinter(this)
+    private var mCpuSampler: CpuSampler = CpuSampler()
 
     override fun onPrintStart() {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
