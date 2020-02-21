@@ -4,8 +4,8 @@ import android.app.Application
 import android.content.Context
 import android.content.res.Configuration
 import android.util.Log
-import com.hewking.advanced.util.APPLICATION_START_MONITOR
-import com.hewking.advanced.util.TimeMonitorManager
+import com.hewking.advanced.monitor.time.APPLICATION_START_MONITOR
+import com.hewking.advanced.monitor.time.TimeMonitorManager
 
 class AdvancedApplication : Application() {
 
@@ -22,16 +22,22 @@ class AdvancedApplication : Application() {
 
 
     override fun attachBaseContext(base: Context?) {
-        TimeMonitorManager.getTimeMonitor(APPLICATION_START_MONITOR)?.startMoniter()
+        TimeMonitorManager.getTimeMonitor(
+            APPLICATION_START_MONITOR
+        )?.startMoniter()
         super.attachBaseContext(base)
         mContext = base?:return
-        TimeMonitorManager.getTimeMonitor(APPLICATION_START_MONITOR)?.recordTimeTag("attachBaseContext")
+        TimeMonitorManager.getTimeMonitor(
+            APPLICATION_START_MONITOR
+        )?.recordTimeTag("attachBaseContext")
     }
 
     override fun onCreate() {
         super.onCreate()
 
-        TimeMonitorManager.getTimeMonitor(APPLICATION_START_MONITOR)?.end("onCreate")
+        TimeMonitorManager.getTimeMonitor(
+            APPLICATION_START_MONITOR
+        )?.end("onCreate")
     }
 
     /**

@@ -3,7 +3,7 @@ package com.hewking.advanced
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import com.hewking.advanced.util.TimeMonitorManager
+import com.hewking.advanced.monitor.time.TimeMonitorManager
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
