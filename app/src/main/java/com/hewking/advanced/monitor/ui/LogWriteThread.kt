@@ -22,7 +22,7 @@ class LogWriteThread {
 
     private var mHander: Handler? = null
 
-    private val lock = Any()
+    private val lock = Object()
 
     init {
         initPath()
