@@ -20,11 +20,16 @@ object SimpleImageLoader : ImageLoader(){
     private val memoryCache = MemoryCache()
 
     override fun loadImage(url: String, imageView: ImageView,bmConfig: BitmapConfig?) {
+        val cache = memoryCache.getBitmap(url)
+        if (cache!= null) {
+            imageView.setImageBitmap(cache)
+            return
+        }
         super.loadImage(url, imageView,bmConfig)
     }
 
-    override fun downloadBitmap(url: String,bmConfig: BitmapConfig?): Bitmap? {
-        val url = URL(url)
+    override fun downloadBitmap(imageUrl: String,bmConfig: BitmapConfig?): Bitmap? {
+        val url = URL(imageUrl)
         var httpUrlConnection: HttpURLConnection? = null
         var stream: InputStream? = null
         try {
@@ -36,7 +41,9 @@ object SimpleImageLoader : ImageLoader(){
             httpUrlConnection.disconnect()
             httpUrlConnection = url.openConnection() as HttpURLConnection
             stream = httpUrlConnection.inputStream
-            return BitmapFactory.decodeStream(stream,null,options)
+            val bitmap = BitmapFactory.decodeStream(stream,null,options)
+            memoryCache.addBitmapToCache(imageUrl,bitmap!!)
+            return bitmap
         }catch (ex: Exception) {
 
         }finally {
