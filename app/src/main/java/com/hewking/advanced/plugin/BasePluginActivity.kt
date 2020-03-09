@@ -68,7 +68,11 @@ abstract class BasePluginActivity : AppCompatActivity(), IPluginActivity {
     }
 
     override fun getResources(): Resources {
-        return super.getResources()
+        return proxyActivity?.resources?:super.getResources()
+    }
+
+    override fun getTheme(): Resources.Theme {
+        return proxyActivity?.theme?:super.getTheme()
     }
 
     override fun getLayoutInflater(): LayoutInflater {
