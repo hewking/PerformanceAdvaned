@@ -6,10 +6,7 @@ import android.util.Log
 import com.hewking.advanced.monitor.time.TimeMonitorManager
 import com.hewking.pluginlib.StubActivity
 import kotlinx.android.synthetic.main.activity_main.*
-import java.io.BufferedOutputStream
-import java.io.BufferedWriter
 import java.io.File
-import java.io.FileOutputStream
 
 class MainActivity : AppCompatActivity() {
 

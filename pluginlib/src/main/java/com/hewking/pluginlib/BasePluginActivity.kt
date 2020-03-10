@@ -3,7 +3,9 @@ package com.hewking.pluginlib
 import android.app.Activity
 import android.content.res.Resources
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 
 /**
@@ -11,6 +13,10 @@ import androidx.appcompat.app.AppCompatActivity
  */
 abstract class BasePluginActivity : AppCompatActivity(),
     IPluginActivity {
+
+    companion object{
+        private const val TAG = "BasePluginActivity"
+    }
 
     private var proxyActivity: Activity? = null
 
@@ -25,10 +31,18 @@ abstract class BasePluginActivity : AppCompatActivity(),
     }
 
     override fun setContentView(layoutResID: Int) {
-        if (proxyActivity != null) {
-            proxyActivity?.setContentView(layoutResID)
-        } else {
+        proxyActivity?.let {
+            it.setContentView(layoutResID)
+        } ?: run {
             super.setContentView(layoutResID)
+        }
+    }
+
+    override fun setContentView(view: View?) {
+        proxyActivity?.let {
+            it.setContentView(view)
+        } ?: run {
+            super.setContentView(view)
         }
     }
 
@@ -68,19 +82,24 @@ abstract class BasePluginActivity : AppCompatActivity(),
         }
     }
 
-    override fun getResources(): Resources {
-        return proxyActivity?.resources?:super.getResources()
+    override fun getResources(): Resources? {
+        if (proxyActivity == null) {
+            return super.getResources()
+        }
+        return proxyActivity?.resources
     }
 
-    override fun getTheme(): Resources.Theme {
-        return proxyActivity?.theme?:super.getTheme()
+    override fun getTheme(): Resources.Theme? {
+        if (proxyActivity == null) {
+            return super.getTheme()
+        }
+        return proxyActivity?.theme
     }
 
     override fun getLayoutInflater(): LayoutInflater {
-        return if (proxyActivity == null) {
-            super.getLayoutInflater()
-        } else {
-            proxyActivity!!.layoutInflater
+        if (proxyActivity == null) {
+            return super.getLayoutInflater()
         }
+        return proxyActivity?.layoutInflater!!
     }
 }

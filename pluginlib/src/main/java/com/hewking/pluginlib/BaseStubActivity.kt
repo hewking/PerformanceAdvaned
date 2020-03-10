@@ -5,6 +5,7 @@ import android.content.res.AssetManager
 import android.content.res.Resources
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import dalvik.system.DexClassLoader
 import java.io.File
 
@@ -15,12 +16,13 @@ import java.io.File
  * 2. 资源的代理，比如resources,theme
  * 3. classLoader 用于加载对应的pluginActivity
  */
-abstract class BaseStubActivity : Activity(){
+abstract class BaseStubActivity : Activity() {
 
-    companion object{
+    companion object {
         /**
          * 定义一些常量
          */
+        private const val TAG = "BaseStubActivity"
         const val PLUGIN_PATH = "pluginPath"
         const val PLUGIN_ACTIVITY = "pluginActivity"
         const val APK_PLUGIN_LIB = "pluginlib"
@@ -41,22 +43,26 @@ abstract class BaseStubActivity : Activity(){
         if (classLoader == null) {
             pluginPath = intent.getStringExtra(PLUGIN_PATH)
             val plugin = intent.getStringExtra(PLUGIN_ACTIVITY)
+            Log.d(TAG, "pluginPath:$pluginPath pluginActivity:$plugin")
             if (TextUtils.isEmpty(pluginPath)
-                || TextUtils.isEmpty(plugin)) {
+                || TextUtils.isEmpty(plugin)
+            ) {
                 throw IllegalArgumentException("pluginPath or PluginActivity maybe null")
             }
-            val nativeLibDir = File(filesDir,
+            val nativeLibDir = File(
+                filesDir,
                 APK_PLUGIN_LIB
             ).absolutePath
-            val dexOutPath = File(filesDir,
+            val dexOutPath = File(
+                filesDir,
                 APK_DEX_OUT
             ).absolutePath
-            classLoader = DexClassLoader(pluginPath,dexOutPath,nativeLibDir,getClassLoader())
+            classLoader = DexClassLoader(pluginPath, dexOutPath, nativeLibDir, getClassLoader())
             pluginActivity = classLoader!!.loadClass(plugin).newInstance() as IPluginActivity
             pluginActivity!!.attach(this)
+            handlerResources()
             pluginActivity!!.onCreate(savedInstanceState)
         }
-        handlerResources()
     }
 
     /**
@@ -64,43 +70,58 @@ abstract class BaseStubActivity : Activity(){
      */
     private fun handlerResources() {
         val assetManager = AssetManager::class.java.newInstance()
-        val addAssetPathMethod = assetManager.javaClass.getDeclaredMethod("addAssetPath",String::class.java)
-        addAssetPathMethod.invoke(assetManager,pluginPath)
-        pluginResources = Resources(assetManager,super.getResources().displayMetrics,super.getResources().configuration)
+        val addAssetPathMethod =
+            assetManager.javaClass.getDeclaredMethod("addAssetPath", String::class.java)
+        addAssetPathMethod.invoke(assetManager, pluginPath)
+        pluginResources = Resources(
+            assetManager,
+            super.getResources().displayMetrics,
+            super.getResources().configuration
+        )
         pluginTheme = pluginResources?.newTheme()
         pluginTheme?.setTo(super.getTheme())
     }
 
     override fun getTheme(): Resources.Theme {
-        return pluginTheme?:super.getTheme()
+        return pluginTheme ?: super.getTheme()
     }
 
     override fun getResources(): Resources {
-        return pluginResources?:super.getResources()
+        return if (pluginResources == null) {
+            super.getResources()
+        } else {
+            pluginResources!!
+        }
     }
 
     override fun onPause() {
-        pluginActivity?.onPause()?:super.onPause()
+        super.onPause()
+        pluginActivity?.onPause()
     }
 
     override fun onStart() {
-        pluginActivity?.onStart()?:super.onStart()
+        super.onStart()
+        pluginActivity?.onStart()
     }
 
     override fun onResume() {
-        pluginActivity?.onResume()?:super.onResume()
+        super.onResume()
+        pluginActivity?.onResume()
     }
 
     override fun onStop() {
-        pluginActivity?.onStop()?:super.onStop()
+        super.onStop()
+        pluginActivity?.onStop()
     }
 
     override fun onRestart() {
-        pluginActivity?.onRestart()?:super.onRestart()
+        super.onRestart()
+        pluginActivity?.onRestart()
     }
 
     override fun onDestroy() {
-        pluginActivity?.onDestroy()?:super.onDestroy()
+        super.onDestroy()
+        pluginActivity?.onDestroy()
     }
 
 
