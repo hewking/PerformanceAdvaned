@@ -1,2 +1,2 @@
-include ':app', ':pluginlib', ':pluginapp'
+include ':app', ':pluginlib', ':pluginapp', ':library'
 rootProject.name='AdvancedProformance'
