@@ -42,10 +42,10 @@ abstract class BaseStubActivity : Activity() {
         super.onCreate(savedInstanceState)
         if (classLoader == null) {
             pluginPath = intent.getStringExtra(PLUGIN_PATH)
-            val plugin = intent.getStringExtra(PLUGIN_ACTIVITY)
-            Log.d(TAG, "pluginPath:$pluginPath pluginActivity:$plugin")
+            val activityName = intent.getStringExtra(PLUGIN_ACTIVITY)
+            Log.d(TAG, "pluginPath:$pluginPath pluginActivity:$activityName")
             if (TextUtils.isEmpty(pluginPath)
-                || TextUtils.isEmpty(plugin)
+                || TextUtils.isEmpty(activityName)
             ) {
                 throw IllegalArgumentException("pluginPath or PluginActivity maybe null")
             }
@@ -58,7 +58,7 @@ abstract class BaseStubActivity : Activity() {
                 APK_DEX_OUT
             ).absolutePath
             classLoader = DexClassLoader(pluginPath, dexOutPath, nativeLibDir, getClassLoader())
-            pluginActivity = classLoader!!.loadClass(plugin).newInstance() as IPluginActivity
+            pluginActivity = classLoader!!.loadClass(activityName).newInstance() as IPluginActivity
             pluginActivity!!.attach(this)
             handlerResources()
             pluginActivity!!.onCreate(savedInstanceState)
