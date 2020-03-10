@@ -1,4 +1,4 @@
-package com.hewking.advanced.plugin
+package com.hewking.pluginlib
 
 import android.app.Activity
 import android.os.Bundle

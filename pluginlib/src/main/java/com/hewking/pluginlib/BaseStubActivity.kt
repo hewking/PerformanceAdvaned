@@ -1,4 +1,4 @@
-package com.hewking.advanced.plugin
+package com.hewking.pluginlib
 
 import android.app.Activity
 import android.content.res.AssetManager
@@ -45,8 +45,12 @@ abstract class BaseStubActivity : Activity(){
                 || TextUtils.isEmpty(plugin)) {
                 throw IllegalArgumentException("pluginPath or PluginActivity maybe null")
             }
-            val nativeLibDir = File(filesDir,APK_PLUGIN_LIB).absolutePath
-            val dexOutPath = File(filesDir,APK_DEX_OUT).absolutePath
+            val nativeLibDir = File(filesDir,
+                APK_PLUGIN_LIB
+            ).absolutePath
+            val dexOutPath = File(filesDir,
+                APK_DEX_OUT
+            ).absolutePath
             classLoader = DexClassLoader(pluginPath,dexOutPath,nativeLibDir,getClassLoader())
             pluginActivity = classLoader!!.loadClass(plugin).newInstance() as IPluginActivity
             pluginActivity!!.attach(this)

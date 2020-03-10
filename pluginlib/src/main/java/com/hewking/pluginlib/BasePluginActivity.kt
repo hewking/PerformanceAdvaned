@@ -1,4 +1,4 @@
-package com.hewking.advanced.plugin
+package com.hewking.pluginlib
 
 import android.app.Activity
 import android.content.res.Resources
@@ -9,7 +9,8 @@ import androidx.appcompat.app.AppCompatActivity
 /**
  * 插件Activity 用于给plugin 继承
  */
-abstract class BasePluginActivity : AppCompatActivity(), IPluginActivity {
+abstract class BasePluginActivity : AppCompatActivity(),
+    IPluginActivity {
 
     private var proxyActivity: Activity? = null
 
