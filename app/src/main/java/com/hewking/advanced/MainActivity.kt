@@ -10,7 +10,9 @@ import java.io.File
 
 class MainActivity : AppCompatActivity() {
 
-    private val MAINACTIVITY_START_MONITOR_ID = 2
+    companion object{
+        const val MAINACTIVITY_START_MONITOR_ID = 2
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         TimeMonitorManager.getTimeMonitor(MAINACTIVITY_START_MONITOR_ID)?.startMoniter()
@@ -35,7 +37,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun extractPlugin() {
-        var inputStream = assets.open("plugin.apk")
+        val inputStream = assets.open("plugin.apk")
         File(filesDir.absolutePath, "plugin.apk").writeBytes(inputStream.readBytes())
     }
 }

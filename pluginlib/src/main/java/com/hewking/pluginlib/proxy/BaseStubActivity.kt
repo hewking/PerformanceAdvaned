@@ -37,6 +37,7 @@ abstract class BaseStubActivity : Activity() {
     private var pluginPath: String? = null
     private var pluginResources: Resources? = null
     private var pluginTheme: Resources.Theme? = null
+    private var pluginAssetManager: AssetManager? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -69,29 +70,34 @@ abstract class BaseStubActivity : Activity() {
      * 初始化资源的加载
      */
     private fun handlerResources() {
-        val assetManager = AssetManager::class.java.newInstance()
-        val addAssetPathMethod =
-            assetManager.javaClass.getDeclaredMethod("addAssetPath", String::class.java)
-        addAssetPathMethod.invoke(assetManager, pluginPath)
-        pluginResources = Resources(
-            assetManager,
-            super.getResources().displayMetrics,
-            super.getResources().configuration
-        )
+        try {
+            pluginAssetManager = AssetManager::class.java.newInstance()
+            val addAssetPathMethod = pluginAssetManager?.javaClass?.getMethod("addAssetPath", String::class.java)
+            addAssetPathMethod?.invoke(pluginAssetManager, pluginPath)
+        } catch (e: Exception) {
+        }
+        pluginResources = Resources(pluginAssetManager, super.getResources().displayMetrics, super.getResources().configuration)
         pluginTheme = pluginResources?.newTheme()
         pluginTheme?.setTo(super.getTheme())
     }
 
-    override fun getTheme(): Resources.Theme {
-        return pluginTheme ?: super.getTheme()
-    }
+    /**
+     * 不能复写，会crash
+     */
+//    override fun getTheme(): Resources.Theme {
+//        return pluginTheme ?: super.getTheme()
+//    }
 
     override fun getResources(): Resources {
-        return if (pluginResources == null) {
-            super.getResources()
-        } else {
-            pluginResources!!
-        }
+        return pluginResources?:super.getResources()
+    }
+
+    override fun getClassLoader(): ClassLoader {
+        return classLoader?:super.getClassLoader()
+    }
+
+    override fun getAssets(): AssetManager {
+        return pluginAssetManager ?: super.getAssets()
     }
 
     override fun onPause() {
