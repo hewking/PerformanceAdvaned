@@ -20,10 +20,20 @@
         android:id="@+id/btn_plugin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:text="proxy plugin"
+        app:layout_constraintBottom_toBottomOf="@id/btn_click"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="@id/btn_plugin_hook" />
+
+    <Button
+        android:id="@+id/btn_plugin_hook"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="hook plugin"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="@id/btn_click" />
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
