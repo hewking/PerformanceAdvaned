@@ -6,12 +6,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
-import androidx.appcompat.app.AppCompatActivity
 
 /**
  * 插件Activity 用于给plugin 继承
  */
-abstract class BasePluginActivity : AppCompatActivity(),
+abstract class BasePluginActivity : Activity(),
     IPluginActivity {
 
     companion object{

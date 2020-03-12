@@ -38,7 +38,7 @@ class AppInstrrmentation(
         return clazz?.newInstance() as Activity
     }
 
-    fun injectActivity(activity: Activity?) {
+    private fun injectActivity(activity: Activity?) {
         val intent = activity?.intent
         val base = activity?.baseContext
         try {
