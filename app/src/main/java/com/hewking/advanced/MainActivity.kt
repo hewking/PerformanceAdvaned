@@ -16,6 +16,8 @@ class MainActivity : AppCompatActivity() {
 
     companion object{
         const val MAINACTIVITY_START_MONITOR_ID = 2
+        const val START_PROXY_PLUGIN = 3
+        const val START_HOOT_PLUGIN = 4
     }
 
     private var pluginClassLoader: ClassLoader? = null
@@ -32,21 +34,27 @@ class MainActivity : AppCompatActivity() {
             Log.d(MainActivity::class.java.simpleName, "after sleep")
         }
         TimeMonitorManager.getTimeMonitor(MAINACTIVITY_START_MONITOR_ID)?.end("onCreate")
-        init()
         extractPlugin()
+        init()
         btn_plugin.setOnClickListener {
+            val monitor = TimeMonitorManager.getTimeMonitor(START_PROXY_PLUGIN)
             val pluginPath = File(filesDir.absolutePath, "plugin.apk").absolutePath
+            monitor?.startMoniter()
             StubActivity.startStubActivity(
                 this@MainActivity,
                 pluginPath,
                 "com.hewking.pluginapp.MainActivity"
             )
+            monitor?.end("Proxy")
         }
 
         btn_plugin_hook.setOnClickListener {
+            val monitor = TimeMonitorManager.getTimeMonitor(START_HOOT_PLUGIN)
+            monitor?.startMoniter()
             Intent(this@MainActivity,pluginClassLoader?.loadClass(activityName)).also {
                 startActivity(it)
             }
+            monitor?.end("Hook")
         }
     }
 

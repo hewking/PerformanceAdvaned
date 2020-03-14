@@ -1,7 +1,6 @@
 package com.hewking.pluginlib.hook
 
 import android.app.Activity
-import android.app.Application
 import android.app.Instrumentation
 import android.content.ComponentName
 import android.content.Context
@@ -14,7 +13,7 @@ import com.hewking.pluginlib.util.Reflect
 
 class AppInstrrmentation(
     private val realContext: Activity,
-    private val instrumentation: Instrumentation,
+    private val base: Instrumentation,
     private val pluginContext: PluginContext
 ) : Instrumentation() {
 
@@ -90,7 +89,7 @@ class AppInstrrmentation(
     ): Instrumentation.ActivityResult? {
 //        Logger.d("exec...")
         injectIntent(intent)
-        return Reflect.on(instrumentation)
+        return Reflect.on(base)
             .call("execStartActivity", who, contextThread, token, target, intent, requestCode).get()
     }
 
@@ -105,7 +104,7 @@ class AppInstrrmentation(
     ): Instrumentation.ActivityResult? {
 //        Logger.d("exec...")
         injectIntent(intent)
-        return Reflect.on(instrumentation)
+        return Reflect.on(base)
             .call("execStartActivity", who, contextThread, token, target, intent, requestCode, options ?: Bundle())
             .get()
     }
@@ -121,7 +120,7 @@ class AppInstrrmentation(
     ): Instrumentation.ActivityResult? {
 //        Logger.d("exec...")
         injectIntent(intent)
-        return Reflect.on(instrumentation)
+        return Reflect.on(base)
             .call("execStartActivity", who, contextThread, token, target, intent, requestCode, options ?: Bundle())
             .get()
     }
@@ -137,7 +136,7 @@ class AppInstrrmentation(
     ): Instrumentation.ActivityResult? {
 //        Logger.d("exec...")
         injectIntent(intent)
-        return Reflect.on(instrumentation)
+        return Reflect.on(base)
             .call("execStartActivity", who, contextThread, token, target, intent, requestCode, options ?: Bundle())
             .get()
     }
