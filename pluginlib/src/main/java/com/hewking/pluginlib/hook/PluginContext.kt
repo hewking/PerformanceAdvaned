@@ -5,6 +5,7 @@ import android.app.Application
 import android.content.Context
 import android.content.res.AssetManager
 import android.content.res.Resources
+import com.hewking.pluginlib.util.Reflect
 
 class PluginContext(
     val pluginPath: String,
@@ -18,10 +19,8 @@ class PluginContext(
     init {
         try {
             val assetManager = AssetManager::class.java.newInstance()
-            val addAssetPathMethod =
-                assetManager.javaClass.getDeclaredMethod("addAssetPath", String::class.java)
-            addAssetPathMethod.invoke(assetManager, pluginPath)
-            resources = Resources(
+            Reflect.on(assetManager).call("addAssetPath",pluginPath)
+                resources = Resources(
                 assetManager,
                 context.resources.displayMetrics,
                 context.resources.configuration

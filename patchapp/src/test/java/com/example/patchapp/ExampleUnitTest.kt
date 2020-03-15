@@ -1,6 +1,5 @@
-package com.hewking.pluginlib
+package com.example.patchapp
 
-import com.hewking.pluginlib.util.Reflect
 import org.junit.Test
 
 import org.junit.Assert.*
@@ -14,14 +13,5 @@ class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
         assertEquals(4, 2 + 2)
-    }
-
-    /**
-     * 测试Reflect反射工具类对于class的处理
-     */
-    @Test
-    fun testReflectClass(){
-        val num: Int = 10
-        Reflect.on(num).call("toHexString",2)
     }
 }
