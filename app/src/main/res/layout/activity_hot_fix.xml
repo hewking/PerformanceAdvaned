@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,8 +7,8 @@
     tools:context=".HotFixActivity">
 
     <com.google.android.material.appbar.AppBarLayout
-        android:layout_height="wrap_content"
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <androidx.appcompat.widget.Toolbar
@@ -21,14 +20,72 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
-    <include layout="@layout/content_hot_fix"/>
+   <androidx.constraintlayout.widget.ConstraintLayout
+       android:layout_width="match_parent"
+       android:layout_height="match_parent">
+       <Button
+           android:id="@+id/btn_hotfix"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="native hook patch"
+           app:layout_constraintTop_toTopOf="parent"
+           app:layout_constraintBottom_toTopOf="@id/btn_toast"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+           />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+       <Button
+           android:id="@+id/btn_insert_dex"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="insert dex patch"
+           app:layout_constraintTop_toBottomOf="@id/btn_hotfix"
+           app:layout_constraintBottom_toTopOf="@id/btn_toast"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"
+           />
+
+       <Button
+           android:id="@+id/btn_toast"
+           android:text="toast patch 校验"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@id/btn_insert_dex"
+           app:layout_constraintBottom_toTopOf="@id/btn_start_fix_act"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"/>
+
+       <Button
+           android:id="@+id/btn_start_fix_act"
+           android:text="跳转到InsertDexTestActiviy"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@id/btn_toast"
+           app:layout_constraintBottom_toTopOf="@id/btn_instant_run_fix"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"/>
+
+       <Button
+           android:id="@+id/btn_instant_run_fix"
+           android:text="Instant Run hotfix"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@id/btn_start_fix_act"
+           app:layout_constraintBottom_toTopOf="@id/btn_toast_instant_run"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"/>
+
+       <Button
+           android:id="@+id/btn_toast_instant_run"
+           android:text="Toast Instant Run hotfix"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           app:layout_constraintTop_toBottomOf="@id/btn_instant_run_fix"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintLeft_toLeftOf="parent"
+           app:layout_constraintRight_toRightOf="parent"/>
+
+   </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,4 +1,4 @@
-package com.hewking.hotfix;
+package com.hewking.hotfix.native_hook;
 
 import java.lang.reflect.Method;
 

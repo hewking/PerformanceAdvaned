@@ -5,8 +5,8 @@
 #include <jni.h>
 #include "art_7_0.h"
 extern "C"
-JNIEXPORT void JNICALL
-Java_com_zy_hotfix_native_1hook_NativeHookUtils_patch(JNIEnv* env, jobject clazz, jobject src, jobject dest) {
+JNIEXPORT void JNICALL Java_com_example_hotfix_NativeHookUtils_patch
+        (JNIEnv* env, jobject clazz, jobject src, jobject dest){
     art::mirror::ArtMethod* smeth =
             (art::mirror::ArtMethod*) env->FromReflectedMethod(src);
 

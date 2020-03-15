@@ -9,4 +9,8 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
+
+    private fun getMsg():String{
+        return "我是nativke hook path 马上就修复了，即时生效"
+    }
 }

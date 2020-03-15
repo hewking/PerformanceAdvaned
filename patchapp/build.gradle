@@ -23,7 +23,22 @@ android {
         }
     }
 
+    project.afterEvaluate {
+        project.tasks.each({
+            if (it.name == "assembleDebug") {
+                it.doLast {
+                    copy {
+                        from new File(project.getBuildDir(), 'outputs/apk/debug/patchapp-debug.apk').absolutePath
+                        into new File(project.getRootProject().getProjectDir(), 'app/src/main/assets')
+                        rename 'patchapp-debug.apk', 'patch.apk'
+                    }
+                }
+            }
+        })
+    }
+
 }
+
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])

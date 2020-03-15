@@ -1,7 +1,8 @@
-package com.example.patchapp
+package com.hewking.advanced
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.patchapp.R
 
 class HotFixActivity : AppCompatActivity() {
 

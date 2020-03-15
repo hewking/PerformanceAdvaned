@@ -1,4 +1,4 @@
-package com.example.hotxfix
+package com.example.hotfix
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

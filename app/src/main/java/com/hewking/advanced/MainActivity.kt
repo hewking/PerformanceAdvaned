@@ -56,6 +56,11 @@ class MainActivity : AppCompatActivity() {
             }
             monitor?.end("Hook")
         }
+        btn_start_patch.setOnClickListener {
+            Intent(this@MainActivity,HotFixActivity::class.java).also {
+                startActivity(it)
+            }
+        }
     }
 
     private fun init() {
@@ -68,7 +73,7 @@ class MainActivity : AppCompatActivity() {
         }
         pluginClassLoader = DexClassLoader(pluginPath, dexOutPath.absolutePath, nativeLibDir.absolutePath, this::class.java.classLoader)
 //        PluginUtils.classLoader = pluginClassLoader
-        AppInstrrmentation.inject(this, PluginContext(pluginPath, this, application, pluginClassLoader!!))
+//        AppInstrrmentation.inject(this, PluginContext(pluginPath, this, application, pluginClassLoader!!))
     }
 
     private fun extractPlugin() {

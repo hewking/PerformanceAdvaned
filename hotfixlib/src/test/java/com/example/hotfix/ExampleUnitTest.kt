@@ -1,4 +1,4 @@
-package com.example.hotxfix
+package com.example.hotfix
 
 import org.junit.Test
 
