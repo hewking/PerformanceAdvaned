@@ -38,7 +38,7 @@ class BitmapConfig(
         val options = BitmapFactory.Options()
         options.inPreferredConfig = Bitmap.Config.RGB_565
         BitmapFactory.decodeStream(stream,null,options)
-        calcualateInSampleSize(options,mWidth,mHeight)
+        options.inSampleSize = calcualateInSampleSize(options,mWidth,mHeight)
         options.inJustDecodeBounds = false
         return options
     }
