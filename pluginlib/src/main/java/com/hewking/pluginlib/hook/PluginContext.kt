@@ -5,8 +5,11 @@ import android.app.Application
 import android.content.Context
 import android.content.res.AssetManager
 import android.content.res.Resources
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.hewking.pluginlib.util.Reflect
 
+@RequiresApi(Build.VERSION_CODES.KITKAT)
 class PluginContext(
     val pluginPath: String,
     val context: Activity,
