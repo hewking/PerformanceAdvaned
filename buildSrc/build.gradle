@@ -1,0 +1,20 @@
+apply plugin: 'groovy'
+//apply plugin: 'kotlin'
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+//    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation gradleApi()
+    implementation localGroovy()
+//    classpath 'com.android.tools.build:gradle:4.0.1'
+//    implementation 'com.android.tools.build:gradle-api:4.0.1'
+}
+
+sourceCompatibility = "1.7"
+targetCompatibility = "1.7"
+
+repositories {
+    google()
+    jcenter()
+    mavenCentral()
+}

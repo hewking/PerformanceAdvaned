@@ -29,7 +29,7 @@ class PluginContext(
                 context.resources.configuration
             )
         } catch (e: ReflectiveOperationException) {
-
+            e.printStackTrace()
         }
     }
 
