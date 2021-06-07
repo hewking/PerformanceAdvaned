@@ -8,17 +8,13 @@ import android.util.Printer
  *  在dispatchMessage 打印调用，记录前后执行时间
  *  判断是否发生了卡顿
  */
-class LogPrinter : Printer {
+class LogPrinter(listener: LogPrintListener) : Printer {
 
     companion object{
         private const val TAG = "LogPrinter"
     }
 
-    private var mLogPrintListener: LogPrintListener
-
-    constructor(listener: LogPrintListener) {
-        this.mLogPrintListener = listener
-    }
+    private var mLogPrintListener: LogPrintListener = listener
 
 
     private var mStartTime:Long = 0

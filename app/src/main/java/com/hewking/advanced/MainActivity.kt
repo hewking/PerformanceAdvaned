@@ -56,6 +56,7 @@ class MainActivity : AppCompatActivity() {
             }
             monitor?.end("Hook")
         }
+
         btn_start_patch.setOnClickListener {
             Intent(this@MainActivity,HotFixActivity::class.java).also {
                 startActivity(it)
